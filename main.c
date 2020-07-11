@@ -75,7 +75,7 @@ void setup_io(){
 
 	// Check if map successful
 	if(gpio_map == MAP_FAILED){
-		printf("mmap error %d\n", (int)gpio_map);
+		fprintf(stderr, "mmap error %d\n", (int)gpio_map);
 		exit(EXIT_FAILURE);
 	}
 
