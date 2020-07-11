@@ -36,14 +36,16 @@ void setup_io();
 int main(int argc, char *argv[]){
 	setup_io();
 
+	int pin = 20;
+
 	// Set GPIO 20 to output
-	INP_GPIO(20);
-	OUT_GPIO(20);
+	INP_GPIO(pin);
+	OUT_GPIO(pin);
 
 	while(1){
-		GPIO_SET = 1<<20;
+		GPIO_SET = 1<<pin;
 		sleep(5);
-		GPIO_CLR = 1<<20;
+		GPIO_CLR = 1<<pin;
 		sleep(5);
 	}
 
