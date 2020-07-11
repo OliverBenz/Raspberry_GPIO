@@ -6,12 +6,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <sys/mman.h>	//mmap()
 #include <unistd.h>
 
 #define BLOCK_SIZE (4*1024)
 
+int memfile;
 volatile unsigned *gpio;
 
 // GPIO setup macros
@@ -50,12 +52,11 @@ int main(int argc, char *argv[]){
 
 // Setup memory regions for GPIO access
 void setup_io(){
-	int memfile = 0;
 	void *gpio_map = NULL;
 
 	// Open /dev/mem for mmap()
-	if((memfile = open("/dev/mem", O_RDWR|O_SYNC)) < 0){
-		printf("Could not open /dev/mem \n");
+	if ((memfile = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
+		fprintf(stderr, "Could not open /dev/mem : %d\n", errno);
 		exit(EXIT_FAILURE);
 	}
 
